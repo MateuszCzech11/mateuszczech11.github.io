@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food App</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+  </head>
+
+  <body class="d-flex h-100 text-center text-bg-dark">
+    <div
+      id="app"
+      class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column"
+    >
+      <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+          <div>
+            <h3 class="float-md-start mb-0">Cover</h3>
+          </div>
+        </header>
+
+        <main class="px-3d-flex w-100 h-100 p-3">
+          <h1>FoodApp</h1>
+          <form>
+            <!-- Email input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="email" id="inputform" class="form-control" />
+              <label class="form-label" for="inputform">Email address</label>
+            </div>
+
+            <!-- Password input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="password" id="inputform" class="form-control" />
+              <label class="form-label" for="inputform">Password</label>
+            </div>
+            <!-- Submit button -->
+            <button
+              type="button"
+              data-mdb-button-init
+              data-mdb-ripple-init
+              class="btn btn-primary btn-dark mb-4"
+              @click="logIn"
+            >
+              Sign in
+            </button>
+
+            <!-- Register buttons -->
+            <div class="text-center">
+              <p>Not a member? <a href="#!">Register</a></p>
+              <p>or sign up with:</p>
+              <div class="login-with row justify-content-center">
+                <div class="fb-container col-6 col-sm-auto">
+                  <a href="vue_page.html">
+                    <img src="images/fb-icon.png" style="width: 30px" />
+                  </a>
+                </div>
+
+                <div class="google-container col-6 col-sm-auto">
+                  <a @click="logIn">
+                    <img src="images/google-icon.png" style="width: 30px" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </main>
+      </div>
+      <logo500-component></logo500-component>
+    </div>
+    <script type="module">
+      Vue.component("logo500-component", {
+        template: `
+            <div>
+                <img src="images/logo500.png" alt="Logo" style="width:20%;">
+            </div>
+            `,
+      });
+      new Vue({
+        el: "#app",
+        methods: {
+          logIn() {
+            var provider = new app.auth.GoogleAuthProvider();
+            console.log("logging");
+          }
+        },
+      });
+    </script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyB4KQQ76R5vR1kERlYEyv26VJ4Zvb2XUu0",
+          authDomain: "food-appproject.firebaseapp.com",
+          projectId: "food-appproject",
+          storageBucket: "food-appproject.appspot.com",
+          messagingSenderId: "135915232192",
+          appId: "1:135915232192:web:f2ce9db338a06b36d3c625",
+          measurementId: "G-T5KJX0QZCX"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+      </script>
+  </body>
+</html>

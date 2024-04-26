@@ -1,0 +1,17 @@
+{
+    "name": "FoodApp aplikacja",
+    "short_name": "App",
+    "description": "Opis aplikacji",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "black",
+    "theme_color": "#000000",
+    "id" :"/index.html",
+    "icons": [
+        {
+          "src": "images/square.png",
+          "type": "image/png",
+          "sizes": "500x500"
+        }
+      ]
+}
