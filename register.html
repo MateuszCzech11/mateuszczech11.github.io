@@ -31,7 +31,7 @@
         </header>
 
         <main class="px-3d-flex w-100 h-100 p-3 text-white">
-          <h1>Sign in to your account</h1>
+          <h1>Register a new account</h1>
           <form>
             <!-- Email input -->
             <div data-mdb-input-init class="form-outline mb-4">
@@ -41,8 +41,13 @@
 
             <!-- Password input -->
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="password" id="inputform-p" class="form-control" />
-              <label class="form-label" for="inputform-e">Password</label>
+              <input type="password" id="inputform-p" class="form-control password-first" />
+              <label class="form-label" for="inputform-p">Password</label>
+            </div>
+             <!-- Password confirmation -->
+            <div data-mdb-input-init class="form-outline mb-4">
+                <input type="password" id="inputform-pc" class="form-control password-confirm" />
+                <label class="form-label" for="inputform-pc">Confirm password</label>
             </div>
             <!-- Submit button -->
             <button
@@ -50,76 +55,45 @@
               data-mdb-button-init
               data-mdb-ripple-init
               class="btn btn-primary btn-dark mb-4"
-              @click=""
+              @click="logIn"
             >
-              Sign in
+              Register account
             </button>
 
-            <!-- Register buttons -->
-            <div class="text-center">
-              <p>Not a member? <b><a @click="goToRegister">Register</b></a></p>
-              <p>or sign up with:</p>
-              <div class="login-with row justify-content-center">
-                <div class="fb-container col-6 col-sm-auto">
-                  <a href="vue_page.html">
-                    <img src="images/fb-icon.png" style="width: 30px" />
-                  </a>
-                </div>
-
-                <div class="google-container col-6 col-sm-auto">
-                  <a @click="signInWithGoogle">
-                    <img src="images/google-icon.png" style="width: 30px" />
-                  </a>
-                </div>
-              </div>
-            </div>
           </form>
       </div>
       <div class="text-left col-sm-auto">
-        <button type="button" class="btn btn-outline-dark" @click="goToCoverScreen">Go Back</button>
+        <button type="button" class="btn btn-outline-dark" @click="goToLoginScreen">Go Back</button>
       </div>
       <div class='logo-component'>
       <logo500-component></logo500-component>
     </div>
     </div>
     <script type="module">
-      import { getAuth,GoogleAuthProvider,signInWithPopup } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
       Vue.component("logo500-component", {
         template: `
             <div>
-                <img src="images/logo500.png" alt="Logo" style="width:30%;">
+                <img src="images/logo500.png" alt="Logo" style="width:20%;">
             </div>
             `,
       });
       new Vue({
         el: "#app",
         methods: {
-          signInWithGoogle() {
-            const auth = getAuth();
-            const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    // Handle successful sign-in
-                    console.log("Signed in successfully!", result.user);
-                    window.location.href="main.html"
-                })
-                .catch((error) => {
-                    // Handle errors
-                    console.error("Error signing in:", error);
-                });
-        },
-          goToCoverScreen(){
-              window.location.href = 'index.html';
+          logIn() {
+            var provider = new app.auth.GoogleAuthProvider();
+            console.log("logging");
           },
-          goToRegister(){
-            window.location.href="register.html";
-          },
+          goToLoginScreen(){
+              window.location.href = 'login.html';
+          }
         },
       });
     </script>
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
       
@@ -137,6 +111,7 @@
       
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
       </script>
   </body>
 </html>

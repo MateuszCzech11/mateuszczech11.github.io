@@ -35,6 +35,8 @@ body {
   width: 130%;;
   max-width: 150px;
 }
+
+
 /*for restaurant scrolling containers */
 div.scroll-container {
   background-color: #333;
@@ -70,4 +72,32 @@ div.scroll-container img {
     text-align: center;
     font-size: 14px;
     font-weight: bold;
+}
+
+/*carousel settings */
+.carousel {
+  width: 80%;
+  max-width: 400px; /* Set the width to around one-third of the screen */
+  margin: auto; /* Center the carousel */
+}
+
+.carousel-inner {
+  width: 100%; /* Make sure the inner content fills the carousel */
+}
+
+.carousel-item img {
+  width: 70%;
+  height: auto;
+}
+
+.carousel-caption {
+  color: white;
+  size: 100px;
+}
+
+.carousel-indicators {
+  bottom: 10px; /* Adjust the position of the indicators */
+}
+.restaurant-name{
+  font-size: 70%;
 }
