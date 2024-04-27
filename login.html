@@ -94,8 +94,11 @@
             signInWithPopup(auth, provider)
                 .then((result) => {
                     // Handle successful sign-in
-                    console.log("Signed in successfully!", result.user);
-                    window.location.href="main.html"
+                    const displayName = result.user.displayName;
+                    // Store the display name (e.g., in localStorage)
+                    localStorage.setItem('displayName', displayName);
+                    // Redirect to the next page
+                    window.location.href = 'main.html';
                 })
                 .catch((error) => {
                     // Handle errors
