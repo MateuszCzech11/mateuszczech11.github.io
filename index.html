@@ -25,7 +25,7 @@
     </style>
 </head>
 
-<body class="d-flex h-100 text-center text-bg-dark" style="background: linear-gradient(#ffffff 75%, #f06331 25%);">
+<body class="d-flex h-100 text-center text-bg-dark" style="background: linear-gradient(#ffffff 80%, #f06331 20%);">
     <div id="app" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
             <header class="mb-auto">
@@ -39,14 +39,14 @@
                 <h1>FoodApp</h1>
                 <p class="lead">Satisfy your cravings with FoodApp - select either delivery to your door or convenient pickup options!</p>
                 <p class="lead">
-                    <button class="btn btn-primary mb-4 btn-dark" @click="goToLoginPage">Log in</button>
+                    <button class="btn btn-primary mb-4 btn-dark" @click="goToLoginPage">Let's go!</button>
 
                 </p>
             </main>
 
             <footer class="mt-auto">
                 <nav class="nav nav-masthead justify-content-center float-md-end">
-                    <a class="nav-link fw-bold py-1 px-0" @click="openGitHubRepo">Contact developers</a>
+                    <a class="nav-link fw-bold py-1 px-0 text-white" @click="openGitHubRepo">Contact developers</a>
                 </nav>
             </footer>
         </div>
@@ -70,7 +70,7 @@
                     window.location.href = 'login.html';
                 },
                 openGitHubRepo() {
-                    const githubRepoURL = 'https://github.com/MateuszCzech11/FoodApp';
+                    const githubRepoURL = 'https://github.com/MateuszCzech11/FoodAppPWA';
                     window.open(githubRepoURL, '_blank');
                 }
             }

@@ -18,7 +18,7 @@
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
   </head>
 
-  <body class="d-flex h-100 text-center text-bg-dark">
+  <body class="d-flex h-100 text-center text-bg-dark" style="background: linear-gradient(#f06331 79%, #ffffff 21%);">
     <div
       id="app"
       class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column"
@@ -26,12 +26,12 @@
       <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
           <div>
-            <h3 class="float-md-start mb-0">Cover</h3>
+            <h3 class="float-md-start mb-0 text-white">FoodApp</h3>
           </div>
         </header>
 
-        <main class="px-3d-flex w-100 h-100 p-3">
-          <h1>FoodApp</h1>
+        <main class="px-3d-flex w-100 h-100 p-3 text-white">
+          <h1>Sign in to your account</h1>
           <form>
             <!-- Email input -->
             <div data-mdb-input-init class="form-outline mb-4">
@@ -74,15 +74,19 @@
               </div>
             </div>
           </form>
-        </main>
       </div>
+      <div class="text-left col-sm-auto">
+        <button type="button" class="btn btn-outline-dark" @click="goToCoverScreen">Go Back</button>
+      </div>
+      <div class='logo-component'>
       <logo500-component></logo500-component>
+    </div>
     </div>
     <script type="module">
       Vue.component("logo500-component", {
         template: `
             <div>
-                <img src="images/logo500.png" alt="Logo" style="width:20%;">
+                <img src="images/logo500.png" alt="Logo" style="width:30%;">
             </div>
             `,
       });
@@ -92,6 +96,9 @@
           logIn() {
             var provider = new app.auth.GoogleAuthProvider();
             console.log("logging");
+          },
+          goToCoverScreen(){
+              window.location.href = 'index.html';
           }
         },
       });

@@ -28,3 +28,46 @@ body {
     max-width: 300px;
     margin: auto;
   }
+  .text-white {
+    color: white;
+}
+.restaurants-image{
+  width: 130%;;
+  max-width: 150px;
+}
+/*for restaurant scrolling containers */
+div.scroll-container {
+  background-color: #333;
+  overflow: auto;
+  white-space: nowrap;
+  padding: 10px;
+}
+
+div.scroll-container img {
+  padding: 10px;
+}
+
+/*for restaurant scrolling containers */
+.scroll-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Enables smooth scrolling on iOS */
+}
+
+.image-container {
+    position: relative;
+    margin-right: 5px; /* Adjust as needed */
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
