@@ -1,0 +1,85 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="./manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food App</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body class="d-flex h-100 text-center text-bg-dark" style="background: linear-gradient(#f06331 79%, #ffffff 21%);">
+    <div id="app" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column text-white">
+                <div class="">
+                    <h3 class="float-md-start mb-0">FoodApp</h3>
+                </div>
+                <h5>Menu of {{ choosenRestaurant }} </h5>
+            <main class="restaurants justify-content-center">
+                <h5>What are you eating today?</h5>
+                <h5>What are you eating today?</h5>
+                <h5>What are you eating today?</h5>
+                <h5>What are you eating today?</h5>
+                <!-- TABEELKA BEDZIE BRALA Z DB MENU RESTAURACJI MOZE??? niewiem wydaje sie skomplikowane w chuj -->
+                <table class="table mt-3">
+                    <thead> 
+                        <tr>
+                            <th>Marka</th>
+                            <th>Model</th>
+                            <th>LPG</th>
+                            <th>Konie mechaniczne</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="car in cars">
+                            <td>{{ car.Model }}</td>
+                            <td>{{ car.Make }}</td>
+                            <td>{{ car.LPG }}</td>
+                            <td>{{ car.HP }}</td>
+                            <td>{{ car.ConsumptionPer100km}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
+
+            <footer class="mt-auto">
+                <div class="text-left col-sm-auto">
+                    <button type="button" class="btn btn-outline-dark" @click="goToMainPage">Go Back</button>
+                </div> 
+            </footer>
+            <logo500-component></logo500-component>
+        </div>
+    </div>
+</body>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="js/main.js"></script>
+    <script>
+        Vue.component('logo500-component', {
+            template: `
+            <div class="centered">
+                <img src="images/logo500.png" alt="Logo" style="width:20vh;">
+            </div>
+            `
+        });
+        new Vue({
+            el: '#app',
+            data: {
+                user:"example user",
+                choosenRestaurant : "[Choosen example restaurant]"
+            },
+            methods: {
+              goToMainPage(){
+                window.location.href = 'main.html';
+              }
+            }
+        });
+    </script>
+</html>

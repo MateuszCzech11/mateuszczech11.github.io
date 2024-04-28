@@ -23,7 +23,7 @@ body {
     font-size: 3rem;
   }
   
-  #inputform{
+  #inputform-e,#inputform-p,#inputform-pc{
     width: 70%;
     max-width: 300px;
     margin: auto;
@@ -76,7 +76,7 @@ div.scroll-container img {
 
 /*carousel settings */
 .carousel {
-  width: 80%;
+  width: 100%;
   max-width: 400px; /* Set the width to around one-third of the screen */
   margin: auto; /* Center the carousel */
 }
@@ -100,4 +100,8 @@ div.scroll-container img {
 }
 .restaurant-name{
   font-size: 70%;
+}
+#demo,#demo1{
+ height: 60%;
+ max-height: 200px;
 }
