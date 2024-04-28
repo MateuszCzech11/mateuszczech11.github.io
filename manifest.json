@@ -2,7 +2,7 @@
     "name": "FoodApp aplikacja",
     "short_name": "App",
     "description": "Opis aplikacji",
-    "start_url": "/index.html",
+    "start_url": "FoodAppPWA/index.html",
     "display": "standalone",
     "background_color": "black",
     "theme_color": "#000000",
