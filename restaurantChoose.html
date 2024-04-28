@@ -1,106 +1,115 @@
+<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
     <link rel="manifest" href="./manifest.json">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food App</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body class="d-flex h-100 text-center text-bg-dark" style="background: linear-gradient(#f06331 79%, #ffffff 21%);">
+<body class="d-flex h-100 text-center text-bg-dark"
+    style="background: linear-gradient(#f06331 79%, #ffffff 21%);">
     <div id="app" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column text-white">
-                <div class="">
-                    <h3 class="float-md-start mb-0">FoodApp</h3>
-                </div>
-                <h5>What are you eating today?</h5>
+            <div class="">
+                <h3 class="float-md-start mb-0">FoodApp</h3>
+            </div>
+            <h4>What are you eating today?</h4>
             <main class="restaurants justify-content-center">
                 <div class="restaurant-collection">
                     <h3>Polish kitchen</h3>
-                  </div>
+                </div>
                 <div id="demo" class="carousel slide" data-ride="carousel" data-interval="5000">
                     <ul class="carousel-indicators">
-                      <li data-target="#demo" data-slide-to="0" class="active"></li>
-                      <li data-target="#demo" data-slide-to="1"></li>
-                      <li data-target="#demo" data-slide-to="2"></li>
+                        <li data-target="#demo" data-slide-to="0" class="active"></li>
+                        <li data-target="#demo" data-slide-to="1"></li>
+                        <li data-target="#demo" data-slide-to="2"></li>
                     </ul>
                     <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img src="images/restaurants/pl-restaurant1.jpg" @click="" alt="Los Angeles" width="600" height="400">
-                        <div class="carousel-caption">
-                          <h5 class="restaurant-name fw-bold">Gospoda Kwiaty Polskie</h5>
-                        </div>   
-                      </div>
-                      <div class="carousel-item">
-                        <img src="images/restaurants/pl-restaurant2.jpg" alt="Chicago" width="600" height="400">
-                        <div class="carousel-caption">
-                          <h5 class="restaurant-name fw-bold">"Matejko" Polish Cuisine</h5>
-                        </div>   
-                      </div>
-                      <div class="carousel-item">
-                        <img src="images/restaurants/pl-restaurant3.jpg" alt="New York" width="600" height="400">
-                        <div class="carousel-caption">
-                          <h5 class="restaurant-name fw-bold">Dobre jedzenie</h5>
-                        </div>   
-                      </div>
+                        <div class="carousel-item active">
+                            <img src="images/restaurants/pl-restaurant1.jpg" @click="selectRestaurant('Gospoda Kwiaty Polskie')"
+                                alt="Los Angeles" width="600" height="400">
+                            <div class="carousel-caption">
+                                <h5 class="restaurant-name fw-bold">Gospoda Kwiaty Polskie</h5>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="images/restaurants/pl-restaurant2.jpg" @click="selectRestaurant('Matejko Polish Cuisine')"
+                                alt="Chicago" width="600" height="400">
+                            <div class="carousel-caption">
+                                <h5 class="restaurant-name fw-bold">"Matejko" Polish Cuisine</h5>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="images/restaurants/pl-restaurant3.jpg" @click="selectRestaurant('Dobre jedzenie')"
+                                alt="New York" width="600" height="400">
+                            <div class="carousel-caption">
+                                <h5 class="restaurant-name fw-bold">Dobre jedzenie</h5>
+                            </div>
+                        </div>
                     </div>
                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                      <span class="carousel-control-prev-icon"></span>
+                        <span class="carousel-control-prev-icon"></span>
                     </a>
                     <a class="carousel-control-next" href="#demo" data-slide="next">
-                      <span class="carousel-control-next-icon"></span>
+                        <span class="carousel-control-next-icon"></span>
                     </a>
-                  </div>
-                  <div class="restaurant-collection">
+                </div>
+                <div class="restaurant-collection">
                     <h3>Japanese kitchen</h3>
-                  </div>
-                  <div id="demo1" class="carousel slide" data-ride="carousel" data-interval="5100">
+                </div>
+                <div id="demo1" class="carousel slide" data-ride="carousel" data-interval="5100">
                     <ul class="carousel-indicators">
-                      <li data-target="#demo1" data-slide-to="0" class="active"></li>
-                      <li data-target="#demo1" data-slide-to="1"></li>
-                      <li data-target="#demo1" data-slide-to="2"></li>
+                        <li data-target="#demo1" data-slide-to="0" class="active"></li>
+                        <li data-target="#demo1" data-slide-to="1"></li>
+                        <li data-target="#demo1" data-slide-to="2"></li>
                     </ul>
                     <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img src="images/restaurants/jp-restaurant1.jpg" alt="Los Angeles" width="600" height="400">
-                        <div class="carousel-caption">
-                          <h5 class="restaurant-name fw-bold">Sono Thai&Sushi</h5>
-                        </div>   
-                      </div>
-                      <div class="carousel-item">
-                        <img src="images/restaurants/jp-restaurant2.png" alt="Chicago" width="600" height="400">
-                        <div class="carousel-caption">
-                          <h5 class="restaurant-name fw-bold">Sushimasters</h5>
-                        </div>   
-                      </div>
-                      <div class="carousel-item">
-                        <img src="images/restaurants/jp-restaurant3.jpg" alt="New York" width="600" height="400">
-                        <div class="carousel-caption">
-                          <h5 class="restaurant-name fw-bold">RamenYum</h5>
-                        </div>   
-                      </div>
+                        <div class="carousel-item active">
+                            <img src="images/restaurants/jp-restaurant1.jpg" @click="selectRestaurant('Sono Thai&Sushi')"
+                                alt="Los Angeles" width="600" height="400">
+                            <div class="carousel-caption">
+                                <h5 class="restaurant-name fw-bold">Sono Thai&Sushi</h5>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="images/restaurants/jp-restaurant2.png" @click="selectRestaurant('Sushimasters')"
+                                alt="Chicago" width="600" height="400">
+                            <div class="carousel-caption">
+                                <h5 class="restaurant-name fw-bold">Sushimasters</h5>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="images/restaurants/jp-restaurant3.jpg" @click="selectRestaurant('RamenYum')"
+                                alt="New York" width="600" height="400">
+                            <div class="carousel-caption">
+                                <h5 class="restaurant-name fw-bold">RamenYum</h5>
+                            </div>
+                        </div>
                     </div>
                     <a class="carousel-control-prev" href="#demo1" data-slide="prev">
-                      <span class="carousel-control-prev-icon"></span>
+                        <span class="carousel-control-prev-icon"></span>
                     </a>
                     <a class="carousel-control-next" href="#demo1" data-slide="next">
-                      <span class="carousel-control-next-icon"></span>
+                        <span class="carousel-control-next-icon"></span>
                     </a>
-                  </div>
+                </div>
             </main>
 
             <footer class="mt-auto">
                 <div class="text-left col-sm-auto">
                     <button type="button" class="btn btn-outline-dark" @click="goToMainPage">Go Back</button>
-                </div> 
+                </div>
             </footer>
             <logo500-component></logo500-component>
         </div>
@@ -109,24 +118,30 @@
 
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script src="js/main.js"></script>
-    <script>
-        Vue.component('logo500-component', {
-            template: `
-            <div class="centered">
-                <img src="images/logo500.png" alt="Logo" style="width:20vh;">
-            </div>
-            `
-        });
-        new Vue({
-            el: '#app',
-            data: {
-                user:"example user"
+<script>
+    Vue.component('logo500-component', {
+        template: `
+        <div class="centered">
+            <img src="images/logo500.png" alt="Logo" style="width:20vh;">
+        </div>
+        `
+    });
+    new Vue({
+        el: '#app',
+        data: {
+            user: "example user",
+            selectedRestaurant: ''
+        },
+        methods: {
+            selectRestaurant(name) {
+                this.selectedRestaurant = name;
+                window.location.href = 'restaurantMenu.html?restaurant=' + encodeURIComponent(this.selectedRestaurant);
             },
-            methods: {
-              goToMainPage(){
+            goToMainPage() {
                 window.location.href = 'main.html';
-              }
             }
-        });
-    </script>
+        }
+    });
+</script>
+
 </html>

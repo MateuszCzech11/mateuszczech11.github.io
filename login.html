@@ -35,29 +35,22 @@
           <form>
             <!-- Email input -->
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="email" id="inputform-e" class="form-control" />
+              <input v-model="mail" placeholder="Email..." type="email" id="inputform-e" class="form-control" />
               <label class="form-label" for="inputform-e">Email address</label>
             </div>
 
             <!-- Password input -->
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="password" id="inputform-p" class="form-control" />
+              <input v-model="password" placeholder="Password..." type="password" id="inputform-p" class="form-control" />
               <label class="form-label" for="inputform-e">Password</label>
             </div>
             <!-- Submit button -->
-            <button
-              type="button"
-              data-mdb-button-init
-              data-mdb-ripple-init
-              class="btn btn-primary btn-dark mb-4"
-              @click=""
-            >
-              Sign in
-            </button>
-
+            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-dark mb-4" @click="SignIn">Sign in</button>
+          </br>
+          {{SignInError}}
             <!-- Register buttons -->
             <div class="text-center">
-              <p>Not a member? <b><a @click="goToRegister">Register</b></a></p>
+              <p>Not a member? <a @click="goToRegister"><b>Register</b></a></p>
               <p>or sign up with:</p>
               <div class="login-with row justify-content-center">
                 <div class="google-container col-6 col-sm-auto">
@@ -77,7 +70,30 @@
     </div>
     </div>
     <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
       import { getAuth,GoogleAuthProvider,signInWithPopup } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+      import { getFirestore, collection, getDocs,doc,setDoc  } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+      // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyB4KQQ76R5vR1kERlYEyv26VJ4Zvb2XUu0",
+          authDomain: "food-appproject.firebaseapp.com",
+          projectId: "food-appproject",
+          storageBucket: "food-appproject.appspot.com",
+          messagingSenderId: "135915232192",
+          appId: "1:135915232192:web:f2ce9db338a06b36d3c625",
+          measurementId: "G-T5KJX0QZCX"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
       Vue.component("logo500-component", {
         template: `
             <div>
@@ -87,7 +103,36 @@
       });
       new Vue({
         el: "#app",
+        data:{
+          users: [],
+          mail:'',
+          password:'',
+          SignInError:''
+        },
         methods: {
+          SignIn(){
+            if (this.mail =='' || this.password=='') {
+              this.SignInError = 'Password or email cannot be null!'
+            }
+            else{
+            this.users.forEach(user => {
+              if (user.email == this.mail) {
+                if (user.password == this.password){
+                  const displayName = this.mail.substr(0,this.mail.indexOf('@'));
+                  localStorage.setItem('displayName', displayName);
+                  this.goToMain();
+                }
+                else {
+                  this.SignInError = 'Wrong password!'
+                }
+              }
+              else {
+                this.SignInError = 'User does not exist!'
+              }
+            });
+
+          }},
+
           signInWithGoogle() {
             const auth = getAuth();
             const provider = new GoogleAuthProvider();
@@ -111,27 +156,19 @@
           goToRegister(){
             window.location.href="register.html";
           },
+          goToMain(){
+            window.location.href="main.html";
+          }
         },
+        async mounted() {
+                const querySnapshot = await getDocs(collection(db, "Users"));
+                querySnapshot.forEach(doc => {
+                    this.users.push(doc.data());
+                    console.log(doc.data());
+                });
+            }
       });
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyB4KQQ76R5vR1kERlYEyv26VJ4Zvb2XUu0",
-          authDomain: "food-appproject.firebaseapp.com",
-          projectId: "food-appproject",
-          storageBucket: "food-appproject.appspot.com",
-          messagingSenderId: "135915232192",
-          appId: "1:135915232192:web:f2ce9db338a06b36d3c625",
-          measurementId: "G-T5KJX0QZCX"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
+        
       </script>
   </body>
 </html>

@@ -101,7 +101,16 @@ div.scroll-container img {
 .restaurant-name{
   font-size: 70%;
 }
+.noBorder{
+  border: none;
+  background: none;
+}
 #demo,#demo1{
  height: 60%;
  max-height: 200px;
+}
+
+.scrollable-table {
+  max-height: 400px; /* Set maximum height for the scrollable area */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
