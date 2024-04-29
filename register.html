@@ -140,24 +140,17 @@
                             });
                 
                 setTimeout(() => {
-                    console.log('Two seconds have passed!');
                     this.goToLoginScreen();
                     }, 500);              
               }
             }
             else {
-              this.registerError='Passwords are not the same!'
+              this.registerError='Passwords are not the same!';
             }
           }
           },
         },
-        async mounted() {
-                const querySnapshot = await getDocs(collection(db, "Users"));
-                querySnapshot.forEach(doc => {
-                    this.users.push(doc.data());
-                    console.log(doc.data());
-                });
-            }
+        c
       });
       </script>
   </body>

@@ -117,8 +117,27 @@
 </body>
 
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script src="js/main.js"></script>
-<script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+      import { getFirestore, collection, getDocs,doc,setDoc  } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+      
+      const firebaseConfig = {
+          apiKey: "AIzaSyB4KQQ76R5vR1kERlYEyv26VJ4Zvb2XUu0",
+          authDomain: "food-appproject.firebaseapp.com",
+          projectId: "food-appproject",
+          storageBucket: "food-appproject.appspot.com",
+          messagingSenderId: "135915232192",
+          appId: "1:135915232192:web:f2ce9db338a06b36d3c625",
+          measurementId: "G-T5KJX0QZCX"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
+    console.log(localStorage.getItem('choseDelivery'))
     Vue.component('logo500-component', {
         template: `
         <div class="centered">
@@ -135,7 +154,14 @@
         methods: {
             selectRestaurant(name) {
                 this.selectedRestaurant = name;
-                window.location.href = 'restaurantMenu.html?restaurant=' + encodeURIComponent(this.selectedRestaurant);
+                
+                setDoc(doc(db, "Carts", localStorage.getItem('userEmail')), {
+                            user : localStorage.getItem('userEmail'),
+                            Dishes : []
+                        });
+                setTimeout(() => {
+                    window.location.href = 'restaurantMenu.html?restaurant=' + encodeURIComponent(this.selectedRestaurant);
+                    }, 500);  
             },
             goToMainPage() {
                 window.location.href = 'main.html';

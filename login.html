@@ -120,6 +120,8 @@
                 if (user.password == this.password){
                   const displayName = this.mail.substr(0,this.mail.indexOf('@'));
                   localStorage.setItem('displayName', displayName);
+                  localStorage.setItem('userEmail',this.mail);
+
                   this.goToMain();
                 }
                 else {
@@ -140,10 +142,13 @@
                 .then((result) => {
                     // Handle successful sign-in
                     const displayName = result.user.displayName;
-                    // Store the display name (e.g., in localStorage)
+                    const userEmail = result.user.email;
+                    // Store the display name in localStorage
                     localStorage.setItem('displayName', displayName);
+                    localStorage.setItem('userEmail',userEmail);
+                    
                     // Redirect to the next page
-                    window.location.href = 'main.html';
+                   window.location.href = 'main.html';
                 })
                 .catch((error) => {
                     // Handle errors
