@@ -112,10 +112,12 @@
             goToMainPage() {
                 window.location.href = 'main.html';
             },
-            calculateTotalSum(){
+            calculateTotalSum(){ // floating point error when without converting to cents - its neccesary
+                let sumInCents = 0;
                 for (let i = 0; i < this.dishes.length; i++) {
-                    this.totalSum += this.dishes[i].Price;
+                    sumInCents += Math.round(this.dishes[i].Price * 100); // Convert price to cents and round
                 }
+                this.totalSum = (sumInCents / 100).toFixed(2); // Convert sum back to decimal and round to two decimal places
             },
             clearCart(){
                 setDoc(doc(db, "Carts", localStorage.getItem('userEmail')), {
