@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+</head>
+
+<body class="d-flex h-100 text-center text-bg-dark"
+    style="background: linear-gradient(#f06331 79%, #ffffff 21%);">
+    <div id="app" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column text-white">
+            <div class="">
+                <h3 class="float-md-start mb-0">FoodApp</h3><br>
+            </div>
+            <main class="map justify-content-center">
+                <h2>Thank you for placing your order!</h2>
+                <div id="map-container">
+                    <p> Map showin: {{ mapText }} </p>
+                    <div id="map" style="width: 100%; height: 40vh;"></div>
+                </div>
+
+                <div id="thank-you">
+                    <h4>Thanks for order</h4>
+                </div>
+                <div id="place-order">
+                    <button type="button" class="btn btn-primary btn-dark mb-4" @click="">Order again</button>
+                </div>
+            </main>
+
+            <footer class="mt-auto">
+                <div class="text-left col-sm-auto">
+                    <button type="button" class="btn btn-outline-dark" @click="goToMainPage">Return to main page</button>
+                </div>
+            </footer>
+            <logo500-component></logo500-component>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB4KQQ76R5vR1kERlYEyv26VJ4Zvb2XUu0",
+            authDomain: "food-appproject.firebaseapp.com",
+            projectId: "food-appproject",
+            storageBucket: "food-appproject.appspot.com",
+            messagingSenderId: "135915232192",
+            appId: "1:135915232192:web:f2ce9db338a06b36d3c625",
+            measurementId: "G-T5KJX0QZCX"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        Vue.component('logo500-component', {
+            template: `
+            <div class="centered">
+                <img src="images/logo500.png" alt="Logo" style="width:20vh;">
+            </div>
+        `
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                user: "example user",
+                dishes: [],
+                totalSum: 0,
+                cart: {},
+                mapText: localStorage.getItem('choseDelivery') === 'true' ? "Your order will be delivered to your location below" : "You can pick up your order from below coordinates",
+                coords: [
+                    parseFloat(localStorage.getItem('latitude')), // Parse latitude string to float
+                    parseFloat(localStorage.getItem('longitude')) // Parse longitude string to float
+                ]            
+            },
+            methods: {
+                goToMainPage() {
+                    window.location.href = 'main.html';
+                },
+                createMap(){
+                    console.log(this.coords);
+                    // Creating map options
+                    var mapOptions = {
+                        center: this.coords,
+                        zoom: 18
+                    }
+                    var map = new L.map('map', mapOptions); // Creating a map object
+
+                    // Creating a Layer object
+                    var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+                    map.addLayer(layer); // Adding layer to the map
+                    var marker = L.marker(this.coords); // Creating a Marker
+
+                    // Adding popup to the marker
+                    marker.addTo(map); // Adding marker to the map
+                }
+            },
+            mounted(){
+                console.log(localStorage.getItem('latitude'));
+                this.createMap(); //NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING
+            }
+        });
+    </script>
+
+</body>
+
+</html>

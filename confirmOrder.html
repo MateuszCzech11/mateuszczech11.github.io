@@ -24,7 +24,7 @@
             <div class="">
                 <h3 class="float-md-start mb-0">FoodApp</h3><br>
             </div>
-            <main class="restaurants justify-content-center">
+            <main class="menu justify-content-center">
                 <h2>Check and confirm your order</h2>
                 <div class="scrollable-table">
                     <table class="table table-striped">
@@ -51,19 +51,13 @@
                 </div>
                 <div id="place-order">
                     <button type="button" class="btn btn-outline-dark mb-4 red-bold-text" @click="clearCart"> Clear cart 🗑️❌</button>
-                    <button type="button" class="btn btn-primary btn-dark mb-4" @click="">Place your order</button>
-                    <!-- IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
-                    localStorage.getItem('choseDelivery') <- needs to check this variable on [place your order] button to display
-                     your location or restaurants location on next page
-                    TO BE DONE TO BE DONE TO BE DONE TO BE DONE TO BE DONE TO BE DONE
-                    -->
-                    
+                    <button type="button" class="btn btn-primary btn-dark mb-4" @click="placeOrder">Place your order</button>
                 </div>
             </main>
 
             <footer class="mt-auto">
                 <div class="text-left col-sm-auto">
-                    <button type="button" class="btn btn-outline-dark" @click="goToMainPage">Go Back</button>
+                    <button type="button" class="btn btn-outline-dark" @click="goToRestaurantPage">Go Back</button>
                 </div>
             </footer>
             <logo500-component></logo500-component>
@@ -109,8 +103,8 @@
             cart: {},
         },
         methods: {
-            goToMainPage() {
-                window.location.href = 'main.html';
+            goToRestaurantPage() {
+                window.location.href = 'restaurantMenu.html?restaurant=' + encodeURIComponent(localStorage.getItem('restaurantName'));
             },
             calculateTotalSum(){ // floating point error when without converting to cents - its neccesary
                 let sumInCents = 0;
@@ -127,11 +121,43 @@
                         setTimeout(() => {
                             window.location.href = 'confirmOrder.html';
                     }, 500);
-            }
+            },
+            placeOrder(){
+                this.getLocation();
+                window.location.href = 'mapAfterConfirm.html';
+            },
+            getLocation(){ // To save location coords for map on next page
+                if (localStorage.getItem('choseDelivery') === 'true'){
+                    alert("I will ask about location")
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(this.savePosition, this.showError);
+                } else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+                }
+                },
+                savePosition(position) {
+                    localStorage.setItem('latitude',position.coords.latitude);
+                    localStorage.setItem('longitude',position.coords.longitude);
+                },
+                showError(error) {
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("User denied the request for Geolocation.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("Location information is unavailable.");
+                        break;
+                    case error.TIMEOUT:
+                        alert("The request to get user location timed out.");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        alert("An unknown error occurred.");
+                        break;
+                    }   
+                },
         },
         async mounted() {
-            
-
             var querySnapshot = await getDocs(collection(db, "Carts"));
                 querySnapshot.forEach(doc => {
                     if (doc.data().user == localStorage.getItem('userEmail')){
@@ -151,10 +177,6 @@
             });   
             this.calculateTotalSum();
             }
-
-           
-
-
     });
 </script>
 
