@@ -31,7 +31,7 @@
                     <h4>Thanks for order</h4>
                 </div>
                 <div id="place-order">
-                    <button type="button" class="btn btn-primary btn-dark mb-4" @click="">Order again</button>
+                    <button type="button" class="btn btn-primary btn-dark mb-4" @click="goToRestaurants">Choose different restaurant</button>
                 </div>
             </main>
 
@@ -94,6 +94,9 @@
                 goToMainPage() {
                     window.location.href = 'main.html';
                 },
+                goToRestaurants(){
+                    window.location.href = 'restaurantChoose.html'
+                },
                 createMap(){
                     console.log(this.coords);
                     // Creating map options
@@ -114,7 +117,7 @@
             },
             mounted(){
                 console.log(localStorage.getItem('latitude'));
-                this.createMap(); //NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING
+                this.createMap();
             }
         });
     </script>

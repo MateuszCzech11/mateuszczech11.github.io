@@ -122,40 +122,21 @@
                             window.location.href = 'confirmOrder.html';
                     }, 500);
             },
-            placeOrder(){
-                this.getLocation();
-                window.location.href = 'mapAfterConfirm.html';
-            },
-            getLocation(){ // To save location coords for map on next page
-                if (localStorage.getItem('choseDelivery') === 'true'){
-                    alert("I will ask about location")
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(this.savePosition, this.showError);
+            placeOrder() {
+                if (localStorage.getItem('choseDelivery') === 'true' && navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(this.handlePosition, this.handleError);
                 } else {
-                    alert("Geolocation is not supported by this browser.");
+                    window.location.href = 'mapAfterConfirm.html';
                 }
-                }
-                },
-                savePosition(position) {
-                    localStorage.setItem('latitude',position.coords.latitude);
-                    localStorage.setItem('longitude',position.coords.longitude);
-                },
-                showError(error) {
-                switch(error.code) {
-                    case error.PERMISSION_DENIED:
-                        alert("User denied the request for Geolocation.");
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        alert("Location information is unavailable.");
-                        break;
-                    case error.TIMEOUT:
-                        alert("The request to get user location timed out.");
-                        break;
-                    case error.UNKNOWN_ERROR:
-                        alert("An unknown error occurred.");
-                        break;
-                    }   
-                },
+            },
+            handlePosition(position) {
+            localStorage.setItem('latitude', position.coords.latitude);
+            localStorage.setItem('longitude', position.coords.longitude);
+            window.location.href = 'mapAfterConfirm.html';
+            },
+            handleError(error) {
+                alert("Unable to get your location. Please make sure you've allowed location access.");
+            },
         },
         async mounted() {
             var querySnapshot = await getDocs(collection(db, "Carts"));
