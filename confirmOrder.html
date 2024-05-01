@@ -25,7 +25,7 @@
                 <h3 class="float-md-start mb-0">FoodApp</h3><br>
             </div>
             <main class="menu justify-content-center">
-                <h2>Check and confirm your order</h2>
+                <h2>Check and confirm your order ({{ choseDelivery }})</h2>
                 <div class="scrollable-table">
                     <table class="table table-striped">
                         <thead>
@@ -101,6 +101,15 @@
             dishes: [],
             totalSum : 0,
             cart: {},
+            choseDelivery: localStorage.getItem('choseDelivery') === 'true' ? "DELIVERY" : "SELF-PICKUP",
+            restaurantCoordinatesMap: {
+                'Gospoda Kwiaty Polskie': { latitude: 50.0612, longitude: 19.9376 },
+                'Matejko Polish Cuisine': { latitude: 50.0615, longitude: 19.9380 },
+                'Dobre jedzenie': { latitude: 50.0619, longitude: 19.9372 },
+                'Sono Thai&Sushi': { latitude: 50.0590, longitude: 19.9535 },
+                'Sushimasters': { latitude: 50.0723, longitude: 19.9585 },
+                'RamenYum': { latitude: 50.0657, longitude: 19.9436 }
+            },
         },
         methods: {
             goToRestaurantPage() {
@@ -125,8 +134,14 @@
             placeOrder() {
                 if (localStorage.getItem('choseDelivery') === 'true' && navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(this.handlePosition, this.handleError);
-                } else {
+                } else if (localStorage.getItem('choseDelivery') === 'false' && localStorage.getItem('restaurantName')) {
+                    const restaurantName = localStorage.getItem('restaurantName');
+                    const restaurantCoordinates = this.restaurantCoordinatesMap[restaurantName];
+                    localStorage.setItem('latitude', restaurantCoordinates.latitude);
+                    localStorage.setItem('longitude', restaurantCoordinates.longitude);
                     window.location.href = 'mapAfterConfirm.html';
+                } else {
+                    alert("Unable to determine delivery location. Please ensure that you've chosen delivery or have a restaurant name available.");
                 }
             },
             handlePosition(position) {

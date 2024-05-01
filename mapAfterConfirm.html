@@ -20,11 +20,11 @@
             <div class="">
                 <h3 class="float-md-start mb-0">FoodApp</h3><br>
             </div>
-            <main class="map justify-content-center">
+            <main class="map-main justify-content-center">
                 <h2>Thank you for placing your order!</h2>
-                <div id="map-container" style="width: 100%; height: 420px;">
+                <div id="map-container">
                     <p> {{ mapText }} </p>
-                    <div id="map" style="width: 100%; height: 350px;"></div>
+                    <div id="map"></div>
                 </div>
                 <div id="below-map-thanks">
                     <div id="thank-you">
@@ -103,12 +103,17 @@
                     // Creating map options
                     var mapOptions = {
                         center: this.coords,
-                        zoom: 18
+                        zoom: 16,
+                        maxZoom: 21
                     }
                     var map = new L.map('map', mapOptions); // Creating a map object
 
                     // Creating a Layer object
-                    var layer = new L.TileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png');
+                    var layer = new L.TileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                        // Server returns 404 after >18 zoom on tiles, this is a quick fix
+                        maxNativeZoom: 18,
+                        maxZoom: 21
+                    });
                     map.addLayer(layer); // Adding layer to the map
                     var marker = L.marker(this.coords); // Creating a Marker
 

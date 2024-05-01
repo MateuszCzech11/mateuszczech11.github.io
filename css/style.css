@@ -114,3 +114,11 @@ div.scroll-container img {
   max-height: 400px; /* Set maximum height for the scrollable area */
   overflow-y: auto; /* Enable vertical scrolling */
 }
+
+/* calculating dimesions for proper display of map and buttons */
+#map{
+  width: 100%; height: calc(100% - 70px);
+}
+#map-container{
+  width: 100%; height: calc(100vh - 450px);
+}
