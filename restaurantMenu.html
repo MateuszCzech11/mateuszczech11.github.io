@@ -98,10 +98,10 @@
                     window.location.href = 'restaurantChoose.html';
                 },
                 async addToCart(dish, event) {
+                    document.getElementById('clickSound').play(); // Play sound
                     if (!this.isAddingToCart) {
                         this.isAddingToCart = true;
                         event.target.innerText = '✅';
-                        document.getElementById('clickSound').play(); // Play sound
                         // Add the selected dish to the cart
                         this.cart.Dishes.push(dish.Name);
                         navigator.vibrate(200); // Vibrate for 300 ms
