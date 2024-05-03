@@ -45,7 +45,7 @@
                     </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-outline-dark" @click="showCart">showCart</button>
+            <button type="button" class="btn btn-outline-dark" @click="showCart">Show cart & checkout</button>
             <footer class="mt-auto">
                 <div class="text-left col-sm-auto">
                     <button type="button" class="btn btn-outline-dark" @click="goToChoosePage">Go Back</button>
@@ -54,8 +54,8 @@
             <logo500-component></logo500-component>
         </div>
     </div>
+    <audio id="clickSound" src="sounds/click.wav"></audio>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- <script src="js/main.js"></script> -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
         import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
@@ -103,7 +103,8 @@
                         event.target.innerText = '✅';
                         // Add the selected dish to the cart
                         this.cart.Dishes.push(dish.Name);
-                        console.log(this.cart)
+                        document.getElementById('clickSound').play(); // Play sound
+                        navigator.vibrate(300); // Vibrate for 300 ms
                         setDoc(doc(db, "Carts", localStorage.getItem('userEmail')), {
                             user : this.cart.user,
                             Dishes : this.cart.Dishes

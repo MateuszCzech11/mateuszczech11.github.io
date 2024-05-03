@@ -8,5 +8,5 @@ Nasza aplikacja mobilna ma na celu realizacje procesu zamawiania jedzenia. Głó
  1) składanie zamówień z wykorzystaniem GPS do określenia lokalizacji użytkownika,
  1) system logowania dla użytkowników,
  1) integrację z bazą danych dla zarządzania zamówieniami,
- 1) oraz wykorzystanie Google Firebase do przechowywania danych w chmurze.
-#### Dodatkowo, aplikacja będzie generować wibracje oraz dźwięk w momencie dostarczenia zamówienia.
+ 1) oraz wykorzystanie Google Firebase do obrazów w chmurze.
+#### Dodatkowo, aplikacja będzie generować wibracje oraz dźwięk w momencie dodania dania do koszyka.

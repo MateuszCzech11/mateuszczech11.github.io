@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body class="d-flex h-100 text-center text-bg-dark"
+<body class="d-flex h-100 text-center text-bg-dark" 
     style="background: linear-gradient(#f06331 79%, #ffffff 21%);">
     <div id="app" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column text-white">
@@ -37,22 +37,22 @@
                     </ul>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="images/restaurants/pl-restaurant1.jpg" @click="selectRestaurant('Gospoda Kwiaty Polskie')"
-                                alt="Los Angeles" width="600" height="400">
+                            <img :src="imageUrls[0]" @click="selectRestaurant('Gospoda Kwiaty Polskie')"
+                                width="600" height="400">
                             <div class="carousel-caption">
                                 <h5 class="restaurant-name fw-bold">Gospoda Kwiaty Polskie</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="images/restaurants/pl-restaurant2.jpg" @click="selectRestaurant('Matejko Polish Cuisine')"
-                                alt="Chicago" width="600" height="400">
+                            <img :src="imageUrls[1]" @click="selectRestaurant('Matejko Polish Cuisine')"
+                                width="600" height="400">
                             <div class="carousel-caption">
                                 <h5 class="restaurant-name fw-bold">"Matejko" Polish Cuisine</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="images/restaurants/pl-restaurant3.jpg" @click="selectRestaurant('Dobre jedzenie')"
-                                alt="New York" width="600" height="400">
+                            <img :src="imageUrls[2]" @click="selectRestaurant('Dobre jedzenie')"
+                                width="600" height="400">
                             <div class="carousel-caption">
                                 <h5 class="restaurant-name fw-bold">Dobre jedzenie</h5>
                             </div>
@@ -76,22 +76,22 @@
                     </ul>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="images/restaurants/jp-restaurant1.jpg" @click="selectRestaurant('Sono Thai&Sushi')"
-                                alt="Los Angeles" width="600" height="400">
+                            <img :src="imageUrls[3]" @click="selectRestaurant('Sono Thai&Sushi')"
+                                width="600" height="400">
                             <div class="carousel-caption">
                                 <h5 class="restaurant-name fw-bold">Sono Thai&Sushi</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="images/restaurants/jp-restaurant2.png" @click="selectRestaurant('Sushimasters')"
-                                alt="Chicago" width="600" height="400">
+                            <img :src="imageUrls[4]" @click="selectRestaurant('Sushimasters')"
+                                width="600" height="400">
                             <div class="carousel-caption">
                                 <h5 class="restaurant-name fw-bold">Sushimasters</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="images/restaurants/jp-restaurant3.jpg" @click="selectRestaurant('RamenYum')"
-                                alt="New York" width="600" height="400">
+                            <img :src="imageUrls[5]" @click="selectRestaurant('RamenYum')"
+                                width="600" height="400">
                             <div class="carousel-caption">
                                 <h5 class="restaurant-name fw-bold">RamenYum</h5>
                             </div>
@@ -121,6 +121,8 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
       import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
       import { getFirestore, collection, getDocs,doc,setDoc  } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+      import { getStorage, ref, listAll,getDownloadURL } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
+
       
       const firebaseConfig = {
           apiKey: "AIzaSyB4KQQ76R5vR1kERlYEyv26VJ4Zvb2XUu0",
@@ -136,6 +138,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        const storage = getStorage(app);
         
     console.log(localStorage.getItem('choseDelivery'))
     Vue.component('logo500-component', {
@@ -148,7 +151,19 @@
     new Vue({
         el: '#app',
         data: {
-            user: "example user",
+            imageUrls: [],
+            restaurants: [
+              {
+                name: "Polish kitchen",
+                folderPath: "restaurant-images",
+                imageNames: ["pl-restaurant1.jpg", "pl-restaurant2.jpg", "pl-restaurant3.jpg"]
+              },
+              {
+                name: "Japanese kitchen",
+                folderPath: "restaurant-images",
+                imageNames: ["jp-restaurant1.jpg", "jp-restaurant2.jpg", "jp-restaurant3.jpg"]
+              }
+            ],
             selectedRestaurant: ''
         },
         methods: {
@@ -165,9 +180,29 @@
             },
             goToMainPage() {
                 window.location.href = 'main.html';
+            },
+            async fetchImagesFromStorage(folderPath, imageNames) {
+              const storageRef = ref(getStorage(), folderPath);
+              for (const imageName of imageNames) {
+                try {
+                  const imageUrl = await getDownloadURL(ref(storageRef, imageName));
+                  this.imageUrls.push(imageUrl);
+                } catch (error) {
+                  console.error("Error getting image URL: ", error);
+                }
+              }
+            }
+        },
+        async mounted() {
+            try { // This way each iteration of the loop will wait for the image fetching to complete before moving on to the next restaurant, ensuring the images are downloaded in the correct order
+                for (let i = 0; i < this.restaurants.length; i++) {
+                    await this.fetchImagesFromStorage(this.restaurants[i].folderPath, this.restaurants[i].imageNames);
+                }
+                console.log("All images fetched:", this.imageUrls);
+            } catch (error) {
+                console.error("Error fetching images:", error);
             }
         }
     });
-</script>
-
+    </script>
 </html>
