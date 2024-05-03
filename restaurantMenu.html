@@ -101,10 +101,10 @@
                     if (!this.isAddingToCart) {
                         this.isAddingToCart = true;
                         event.target.innerText = '✅';
+                        document.getElementById('clickSound').play(); // Play sound
                         // Add the selected dish to the cart
                         this.cart.Dishes.push(dish.Name);
-                        document.getElementById('clickSound').play(); // Play sound
-                        navigator.vibrate(300); // Vibrate for 300 ms
+                        navigator.vibrate(200); // Vibrate for 300 ms
                         setDoc(doc(db, "Carts", localStorage.getItem('userEmail')), {
                             user : this.cart.user,
                             Dishes : this.cart.Dishes
