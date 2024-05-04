@@ -63,6 +63,7 @@
             <logo500-component></logo500-component>
         </div>
     </div>
+    <audio id="clickSound" src="sounds/click.wav"></audio>
 </body>
 
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -113,6 +114,7 @@
         },
         methods: {
             goToRestaurantPage() {
+                this.playSoundAndPause();
                 window.location.href = 'restaurantMenu.html?restaurant=' + encodeURIComponent(localStorage.getItem('restaurantName'));
             },
             calculateTotalSum(){ // floating point error when without converting to cents - its neccesary
@@ -123,6 +125,7 @@
                 this.totalSum = (sumInCents / 100).toFixed(2); // Convert sum back to decimal and round to two decimal places
             },
             clearCart(){
+                this.playSoundAndPause();
                 setDoc(doc(db, "Carts", localStorage.getItem('userEmail')), {
                             user : this.cart.user,
                             Dishes : []
@@ -132,6 +135,7 @@
                     }, 500);
             },
             placeOrder() {
+                this.playSoundAndPause();
                 if (localStorage.getItem('choseDelivery') === 'true' && navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(this.handlePosition, this.handleError);
                 } else if (localStorage.getItem('choseDelivery') === 'false' && localStorage.getItem('restaurantName')) {
@@ -143,6 +147,11 @@
                 } else {
                     alert("Unable to determine delivery location. Please ensure that you've chosen delivery or have a restaurant name available.");
                 }
+            },
+            playSoundAndPause() {
+                document.getElementById('clickSound').play();
+                // Without timeout sound doesn't go through when changing page
+                setTimeout(() => {}, 100);
             },
             handlePosition(position) {
             localStorage.setItem('latitude', position.coords.latitude);

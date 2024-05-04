@@ -59,10 +59,10 @@
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
+                        <span @click="playSoundAndPause" class="carousel-control-prev-icon"></span>
                     </a>
                     <a class="carousel-control-next" href="#demo" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
+                        <span @click="playSoundAndPause" class="carousel-control-next-icon"></span>
                     </a>
                 </div>
                 <div class="restaurant-collection">
@@ -98,10 +98,10 @@
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#demo1" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
+                        <span @click="playSoundAndPause" class="carousel-control-prev-icon"></span>
                     </a>
                     <a class="carousel-control-next" href="#demo1" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
+                        <span @click="playSoundAndPause" class="carousel-control-next-icon"></span>
                     </a>
                 </div>
             </main>
@@ -114,6 +114,7 @@
             <logo500-component></logo500-component>
         </div>
     </div>
+    <audio id="clickSound" src="sounds/click.wav"></audio>
 </body>
 
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -168,6 +169,7 @@
         },
         methods: {
             selectRestaurant(name) {
+                this.playSoundAndPause();
                 this.selectedRestaurant = name;
                 
                 setDoc(doc(db, "Carts", localStorage.getItem('userEmail')), {
@@ -179,7 +181,13 @@
                     }, 500);  
             },
             goToMainPage() {
+                this.playSoundAndPause();
                 window.location.href = 'main.html';
+            },
+            playSoundAndPause() {
+                document.getElementById('clickSound').play();
+                // Without timeout sound doesn't go through when changing page
+                setTimeout(() => {}, 100);
             },
             async fetchImagesFromStorage(folderPath, imageNames) {
               const storageRef = ref(getStorage(), folderPath);

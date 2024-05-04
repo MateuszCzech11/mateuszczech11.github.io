@@ -69,6 +69,7 @@
       <logo500-component></logo500-component>
     </div>
     </div>
+    <audio id="clickSound" src="sounds/click.wav"></audio>
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
@@ -111,6 +112,7 @@
         },
         methods: {
           SignIn(){
+            this.playSoundAndPause();
             if (this.mail =='' || this.password=='') {
               this.SignInError = 'Password or email cannot be null!'
             }
@@ -136,6 +138,7 @@
           }},
 
           signInWithGoogle() {
+            this.playSoundAndPause();
             const auth = getAuth();
             const provider = new GoogleAuthProvider();
             signInWithPopup(auth, provider)
@@ -147,8 +150,7 @@
                     localStorage.setItem('displayName', displayName);
                     localStorage.setItem('userEmail',userEmail);
                     
-                    // Redirect to the next page
-                   window.location.href = 'main.html';
+                    window.location.href = 'main.html';
                 })
                 .catch((error) => {
                     // Handle errors
@@ -156,20 +158,27 @@
                 });
         },
           goToCoverScreen(){
+            this.playSoundAndPause();
               window.location.href = 'index.html';
           },
           goToRegister(){
+            this.playSoundAndPause();
             window.location.href="register.html";
           },
           goToMain(){
+            this.playSoundAndPause();
             window.location.href="main.html";
+          },
+          playSoundAndPause() {
+            document.getElementById('clickSound').play();
+            // Without timeout sound doesn't go through when changing page
+            setTimeout(() => {}, 100);
           }
         },
         async mounted() {
                 const querySnapshot = await getDocs(collection(db, "Users"));
                 querySnapshot.forEach(doc => {
                     this.users.push(doc.data());
-                    console.log(doc.data());
                 });
             }
       });

@@ -68,8 +68,9 @@
       </div>
       <div class='logo-component'>
       <logo500-component></logo500-component>
+     </div>
     </div>
-    </div>
+    <audio id="clickSound" src="sounds/click.wav"></audio>
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
       import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
@@ -111,12 +112,14 @@
         
         methods: {
           goToLoginScreen(){
+            this.playSoundAndPause();
               window.location.href = 'login.html';
           },
           register() {
-            console.log(this.mail);
-            console.log(this.password);
-            console.log(this.repassword);
+            this.playSoundAndPause();
+            //console.log(this.mail);
+            //console.log(this.password);
+            //console.log(this.repassword);
             
             if (this.password == '' || this.mail == '') {
               this.registerError='Password or email cannot be null!'
@@ -149,8 +152,12 @@
             }
           }
           },
+          playSoundAndPause() {
+            document.getElementById('clickSound').play();
+            // Without timeout sound doesn't go through when changing page
+            setTimeout(() => {}, 100);
+          }
         },
-        c
       });
       </script>
   </body>

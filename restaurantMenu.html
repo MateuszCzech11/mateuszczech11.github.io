@@ -55,6 +55,7 @@
         </div>
     </div>
     <audio id="clickSound" src="sounds/click.wav"></audio>
+    <audio id="addToCartSound" src="sounds/addcart.wav"></audio>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
@@ -95,10 +96,11 @@
             },
             methods: {
                 goToChoosePage() {
+                    this.playSoundAndPause();
                     window.location.href = 'restaurantChoose.html';
                 },
                 async addToCart(dish, event) {
-                    document.getElementById('clickSound').play(); // Play sound
+                    document.getElementById('addToCartSound').play();
                     if (!this.isAddingToCart) {
                         this.isAddingToCart = true;
                         event.target.innerText = '✅';
@@ -116,7 +118,13 @@
                     }
                 },
                 showCart() {
+                    this.playSoundAndPause();
                     window.location.href = 'confirmOrder.html';
+                },
+                playSoundAndPause() {
+                    document.getElementById('clickSound').play();
+                    // Without timeout sound doesn't go through when changing page
+                    setTimeout(() => {}, 100);
                 },
             },
             async mounted() {

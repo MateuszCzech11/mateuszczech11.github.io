@@ -47,8 +47,7 @@
           <logo500-component></logo500-component>
         </div>
   </div>
-
-  
+  <audio id="clickSound" src="sounds/click.wav"></audio>
 </body>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script type="module">
@@ -85,6 +84,7 @@
             },
             methods: {
               goToLoginPage(){
+                this.playSoundAndPause();
                 window.location.href = 'login.html';
               },
               goToRestaurants(choseDelivery){
@@ -93,8 +93,14 @@
                 } else {
                   localStorage.setItem('choseDelivery',false);
                 }
+                this.playSoundAndPause();
                 window.location.href = 'restaurantChoose.html'
-              }
+              },
+              playSoundAndPause() {
+                  document.getElementById('clickSound').play();
+                  // Without timeout sound doesn't go through when changing page
+                  setTimeout(() => {}, 100);
+                }
             }
         });
     </script>
