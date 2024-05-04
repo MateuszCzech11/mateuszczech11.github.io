@@ -2,7 +2,7 @@ body {
     font-family: sans-serif;
   }
   
-  /* Make content area fill the entire browser window */
+  /*  Make content fill entire browser window */
   html,
   .fullscreen {
     position: fixed;
@@ -62,12 +62,12 @@ div.scroll-container img {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Enables smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
 }
 
 .image-container {
     position: relative;
-    margin-right: 5px; /* Adjust as needed */
+    margin-right: 5px;
 }
 
 .overlay {
@@ -85,8 +85,8 @@ div.scroll-container img {
 /*carousel settings */
 .carousel {
   width: 100%;
-  max-width: 400px; /* Set the width to around one-third of the screen */
-  margin: auto; /* Center the carousel */
+  max-width: 400px;
+  margin: auto; 
 }
 
 .carousel-inner {
@@ -119,7 +119,7 @@ div.scroll-container img {
 }
 
 .scrollable-table {
-  max-height: 400px; /* Set maximum height for the scrollable area */
+  max-height: 400px; 
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
@@ -129,4 +129,18 @@ div.scroll-container img {
 }
 #map-container{
   width: 100%; height: calc(100vh - 450px);
+}
+/* CSS for fade-in animation */
+.fade-in {
+  animation: fadeInAnimation ease 0.8s;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+
+  100% {
+      opacity: 1;
+  }
 }
