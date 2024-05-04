@@ -43,23 +43,23 @@
                         </tbody>
                     </table>
                 </div>
-
+            </main>
+            
+            <footer class="mt-auto">
                 <!-- Display total sum of prices -->
                 <div id="total-sum">
                     <h4>Total sum: {{ totalSum }}</h4>
                 </div>
                 <div id="place-order">
+                    {{ emptyCartError }}<br>
                     <button type="button" class="btn btn-outline-dark mb-4 red-bold-text" @click="clearCart"> Clear cart 🗑️❌</button>
                     <button type="button" class="btn btn-primary btn-dark mb-4" @click="placeOrder">Place your order</button>
                 </div>
-            </main>
-
-            <footer class="mt-auto">
                 <div class="text-left col-sm-auto">
-                    <button type="button" class="btn btn-outline-dark" @click="goToRestaurantPage">Go Back</button>
+                    <button type="button" class="btn btn-outline-dark mt-3 mt-sm-0" @click="goToRestaurantPage">Go Back</button>
                 </div>
             </footer>
-            <logo500-component></logo500-component>
+            <logo500-component></logo500-component>     
         </div>
     </div>
     <audio id="clickSound" src="sounds/click.wav"></audio>
@@ -101,6 +101,7 @@
             dishes: [],
             totalSum : 0,
             cart: {},
+            emptyCartError:'',
             choseDelivery: localStorage.getItem('choseDelivery') === 'true' ? "DELIVERY" : "SELF-PICKUP",
             restaurantCoordinatesMap: {
                 'Gospoda Kwiaty Polskie': { latitude: 50.0612, longitude: 19.9376 },
@@ -134,6 +135,10 @@
                     }, 500);
             },
             placeOrder() {
+                if (this.dishes.length == 0){ // Fixes ordering empty cart
+                    this.emptyCartError = "Looks like your cart is empty. Add some items before placing an order!"
+                    return;
+                }
                 this.playSoundAndPause();
                 if (localStorage.getItem('choseDelivery') === 'true' && navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(this.handlePosition, this.handleError);
